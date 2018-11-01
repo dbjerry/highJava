@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- namespace속성 : 아래에서 작성한 SQL을 호출할 때 같이 사용된다. -->			
+<sqlMap namespace="buyprod">
+<typeAlias alias="BprodVO" type="vo.BuyProdVO"/>
+
+	<insert id="insertBprod" parameterClass="BprodVO">
+		insert into buyprod(buy_date, buy_cost, buy_qty, buy_prod)
+				values(SYSDATE , #buy_cost#, #buy_qty#, #buy_prod#)
+	</insert>
+	
+	<delete id="deleteBprod" parameterClass="BprodVO">
+		delete from buyprod
+			where buy_prod = #buy_prod#
+				and to_char(buy_date,'YYYY-MM-DD') = #buy_date#
+	</delete>
+	
+	<update id="updateBprod" parameterClass="BprodVO">
+		update buyprod set buy_cost = #buy_cost#
+							,buy_qty = #buy_qty#
+						where buy_prod = #buy_prod#
+							and to_char(buy_date,'YYYY-MM-DD') = #buy_date#  
+	</update>
+	
+	<select id="getBprod" parameterClass="BprodVO" resultClass="BprodVO">
+		select * from buyprod
+			where to_char(buy_date,'YYYY-MM-DD') = #buy_date#
+				and buy_prod = #buy_prod#
+	</select>
+	
+	<select id="getBprodAll" resultClass="BprodVO">
+		select * from buyprod
+	</select>
+
+</sqlMap>

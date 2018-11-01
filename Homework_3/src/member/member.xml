@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<!-- namespace : 아래에서 작성한 SQL을 호출할 때 같이 사용 -->			
+<sqlMap namespace="member">
+	<!-- select -->
+	<select id="selectMemAll" resultClass="memVO">
+		SELECT *
+		FROM   MEMBER
+	</select>
+	
+	<select id="selectMem" parameterClass="memVO" resultClass="memVO">
+		SELECT *
+		FROM   MEMBER
+		<dynamic prepend="where">
+	 		<isNotEmpty prepend="and" property="mem_id">
+	 			MEM_ID = #mem_id#
+	 		</isNotEmpty>
+	 		<isNotEmpty prepend="and" property="mem_name">
+	 			MEM_NAME = #mem_name#
+	 		</isNotEmpty>
+	 	</dynamic>
+	</select>
+	
+	<select id="checkMem" parameterClass="String" resultClass="int">
+		SELECT count(*)
+		FROM   MEMBER
+		WHERE  MEM_ID = #mem_id#
+	</select>
+	
+	<!-- insert -->
+	<insert id="insertMem" parameterClass="memVO">
+		INSERT INTO MEMBER
+			(MEM_ID
+			, MEM_PASS
+			, MEM_NAME
+			, MEM_REGNO1
+			, MEM_REGNO2
+	   <!-- , MEM_BIR -->
+			, MEM_ZIP
+			, MEM_ADD1
+			, MEM_ADD2
+			, MEM_HOMETEL
+			, MEM_COMTEL
+	   <!-- , MEM_HP -->
+			, MEM_MAIL
+	   <!-- , MEM_JOB
+			, MEM_LIKE
+			, MEM_MEMORIAL
+			, MEM_MEMORIALDAY
+			, MEM_MILEAGE
+			, MEM_DELETE -->)
+		VALUES
+			(#mem_id#
+			, #mem_pass#
+			, #mem_name#
+			, #mem_regno1#
+			, #mem_regno2#
+	   <!-- , #mem_bir# -->
+			, #mem_zip#
+			, #mem_add1#
+			, #mem_add2#
+			, #mem_hometel#
+			, #mem_comtel#
+	   <!-- , #mem_hp# -->
+			, #mem_mail#
+	   <!-- , #mem_job#
+			, #mem_like#
+			, #mem_memorial#
+			, #mem_memorialday#
+			, #mem_mileage#
+			, #mem_delete# -->)
+	</insert>
+	
+	<!-- update -->
+	<update id="updateMem" parameterClass="memVO">
+		UPDATE MEMBER
+		SET MEM_PASS = #mem_pass#
+		  , MEM_NAME = #mem_name#
+		  <!-- , MEM_REGNO1 = #mem_regno1#
+		  , MEM_REGNO2 = #mem_regno2# -->
+	 <!-- , MEM_BIR = #mem_bir# -->
+		  , MEM_ZIP = #mem_zip#
+		  , MEM_ADD1 = #mem_add1#
+		  , MEM_ADD2 = #mem_add2#
+		  , MEM_HOMETEL = #mem_hometel#
+		  , MEM_COMTEL = #mem_comtel#
+	 <!-- , MEM_HP = #mem_hp# -->
+		  , MEM_MAIL = #mem_mail#
+	 <!-- , MEM_JOB = #mem_job#
+		  , MEM_LIKE = #mem_like#
+		  , MEM_MEMORIAL = #mem_memorial#
+		  , MEM_MEMORIALDAY = #mem_memorialday#
+		  , MEM_MILEAGE = #mem_mileage#
+		  , MEM_DELETE = #mem_delete# -->
+		WHERE MEM_ID = #mem_id#
+	</update>
+	
+	<!-- delete -->
+	<delete id="deleteMem" parameterClass="String">
+		DELETE FROM MEMBER
+		WHERE MEM_ID = #mem_id#
+	</delete>
+</sqlMap>

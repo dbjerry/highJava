@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+		  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 처리할 SQL문을 작성하는 문서 -->
+
+<!-- namespace속성 : 아래에서 작성한 SQL문을 호출할 때 같이 사용한다. -->		  
+<sqlMap namespace="mymember">
+
+	 <!-- insert 연습 -->
+	 <insert id="insertMember" parameterClass="memVo">
+	 	insert into mymember (mem_id, mem_name, mem_tel, mem_addr)
+	 	values ( #mem_id#, #mem_name#, #mem_tel#, #mem_addr# )
+	 </insert>
+	 
+	 <!-- delete 연습 -->
+	 
+	 <delete id="deleteMember" parameterClass="String">
+	 	<!--  delete from mymember where mem_id=#mem_id# -->
+	 	delete from mymember where mem_id=#dlkdlk#
+	 </delete>
+	 
+	 <!-- update 연습 -->
+<!-- 	 <update id="updateMember" parameterClass="basic.MemberVO"> -->
+	<update id="updateMember" parameterClass="memVo"> 
+	 	update mymember set mem_name=#mem_name# , 
+	 			mem_tel=#mem_tel# ,
+	 			mem_addr=#mem_addr# 
+	 	where mem_id=#mem_id#
+	 </update>
+	 
+	 <!-- 
+	 	<dynamic>~~</dynamic>태그 사용하기
+	 	  ==> 주어지는 여러 조건에 따라 SQL문이 자동으로 만들어지도록
+	 	      해주는 태그이다.
+	 
+	  -->
+	 
+	 <update id="modifyMember" parameterClass="memVo">
+	 	update mymember 
+	 
+	 	<dynamic prepend="set">
+	 		<isNotNull prepend="," property="mem_name">
+	 			mem_name = #mem_name#
+	 		</isNotNull>
+	 		
+	 		<isNotNull prepend="," property="mem_tel">
+	 			mem_tel = #mem_tel#
+	 		</isNotNull>
+	 		
+	 		<isNotNull prepend="," property="mem_addr">
+	 			mem_addr = #mem_addr#
+	 		</isNotNull>
+	 	</dynamic>
+	 
+	 	where mem_id=#mem_id#
+	 
+	 </update>
+	 
+	 <!-- select 연습 -->
+	 <!--  
+	 	resultClass에는 select한 결과 중 1개의 데이터가
+	 	저장될 수 있는 객체를 지정해 준다.
+	  -->
+	 <select id="selectAllMember" resultClass="memVo">
+	 	select * from mymember
+	 </select>
+	 
+	 <select id="getMember" parameterClass="String" resultClass="memVo">
+	 	select * from mymember where mem_id=#mem_id#
+	 </select>
+	 
+	 <select id="getMemberCount" parameterClass="String" resultClass="int">
+	 	select count(*) from mymember where mem_id=#mem_id#
+	 </select>
+	 
+	 <!-- 검색용 쿼리문 -->
+	 <select id="getFindMember" parameterClass="map" resultClass="memVo">
+	 	select * from mymember where $col$ $op$ #value#
+	 </select>
+	
+</sqlMap>		  

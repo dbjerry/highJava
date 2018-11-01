@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vim.VimController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu fx:id="file_menu" mnemonicParsing="false" onAction="#fileMenuAction" text="File">
+            <items>
+              <MenuItem fx:id="file_new" mnemonicParsing="false" onAction="#newAction" text="새로 만들기" />
+                  <MenuItem fx:id="file_open" mnemonicParsing="false" onAction="#openAction" text="열기" />
+                  <MenuItem fx:id="file_save" mnemonicParsing="false" onAction="#saveAction" text="새 이름으로 저장" />
+                  <MenuItem fx:id="close" mnemonicParsing="false" onAction="#closeAction" text="닫기" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

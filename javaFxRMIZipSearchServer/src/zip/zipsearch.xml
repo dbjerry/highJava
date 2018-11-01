@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+		  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 처리할 SQL문을 작성하는 문서 -->
+
+<!-- namespace속성 : 아래에서 작성한 SQL문을 호출할 때 같이 사용한다. -->		  
+<sqlMap namespace="zipsearch">
+
+<!--  basic.MemberVO 대신 memVo를 사용할 수 있다. -->
+	<typeAlias alias="zipVo" type="zip.vo.ZipVO"/>
+	 
+	 <select id="getSearchDong" parameterClass="String" resultClass="zipVo">
+	 	select * from ziptb where dong like '%' || #dong# || '%'
+	 </select>
+	 
+	 <select id="getSearchCode" parameterClass="String" resultClass="zipVo">
+	 	select * from ziptb where zipcode like '%' || #code# || '%'
+	 </select>
+	 
+</sqlMap>		  

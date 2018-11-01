@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+		  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+		  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 처리할 SQL문을 작성하는 문서 -->
+
+<!-- namespace속성 : 아래에서 작성한 SQL문을 호출할 때 같이 사용한다. -->		  
+<sqlMap namespace="board">
+
+	 <!-- insert 연습 -->
+	 <insert id="insertBoard" parameterClass="boardVo">
+	 	INSERT INTO jdbc_board (board_no, board_title, board_writer, 
+	 	board_date, board_content) VALUES 
+	 	(board_SQC.nextVal, #board_title#, #board_writer#, sysdate, #board_content#)
+	 </insert>
+	 
+	 <!-- delete 연습 -->
+	 <delete id="deleteBoard" parameterClass="int">
+	 	<!--  delete from mymember where mem_id=#mem_id# -->
+	 	DELETE FROM jdbc_board WHERE board_no=#board_no#
+	 </delete>
+	 
+	 <!-- update 연습 -->
+<!-- 	 <update id="updateMember" parameterClass="basic.MemberVO"> -->
+	<update id="updateBoard" parameterClass="boardVo"> 
+	 	UPDATE jdbc_board SET board_title=#board_title# , 
+	 			board_content=#board_content# 
+	 			WHERE board_no=#board_no#
+	 </update>
+	 
+	 <!-- 
+	 	<dynamic>~~</dynamic>태그 사용하기
+	 	  ==> 주어지는 여러 조건에 따라 SQL문이 자동으로 만들어지도록
+	 	      해주는 태그이다.
+	  -->
+	 <update id="modifyBoard" parameterClass="boardVo">
+	 	UPDATE jdbc_board 
+	 
+	 	<dynamic prepend="set">
+	 		<isNotNull prepend=", " property="board_title">
+	 			board_title = #board_title#
+	 		</isNotNull>
+	 		
+	 		<isNotNull prepend=", " property="board_content">
+	 			board_content = #board_content#
+	 		</isNotNull>
+	 	</dynamic>
+	 
+	 	, board_date = SYSDATE WHERE board_no = #board_no#
+	 </update>
+	 
+	 <!-- select 연습 -->
+	 <!--  
+	 	resultClass에는 select한 결과 중 1개의 데이터가
+	 	저장될 수 있는 객체를 지정해 준다.
+	  -->
+	 <select id="selectAllBoard" resultClass="boardVo">
+	 	SELECT board_no, board_title, board_writer, 
+	 	to_char(board_date, 'yyyy-MM-dd') AS board_date, board_content 
+	 	FROM jdbc_board
+	 </select>
+	 
+	 <select id="getBoard" parameterClass="int" resultClass="boardVo">
+	 	SELECT board_no, board_title, board_writer, 
+	 	to_char(board_date, 'yyyy-MM-dd') AS board_date, board_content 
+	 	FROM jdbc_board WHERE board_no = #board_no#
+	 </select>
+	 
+<!-- 	 <select id="getBoardCount" parameterClass="String" resultClass="int"> -->
+<!-- 	 	SELECT COUNT(*) FROM jdbc_board WHERE board_no = #board_no# -->
+<!-- 	 </select> -->
+	 
+ 	 <!-- 검색용 쿼리문 -->
+<!-- 	 <select id="getFindBoard" parameterClass="map" resultClass="boardVo"> -->
+<!-- 	 	SELECT * FROM jdbc_board WHERE $col$ $op$ #value# -->
+<!-- 	 </select> -->
+
+</sqlMap>		  

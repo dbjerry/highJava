@@ -1,0 +1,17 @@
+package test.main;
+
+public class SvnTest {
+	public static void main(String[] args) {
+		
+		//SVN 연습용 파일 
+		//팀원일 때 처음에 파일을 가져올때는 체크아웃
+		
+		
+		System.out.println("안녕 친구들 만나서 귀찮다");
+		System.out.println("짜잉나");
+		System.out.println("뭐지 왜 안돼");
+		System.out.println("되는 줄 알았더니 안되넹..");
+		
+		System.out.println(5+5);
+	}
+}

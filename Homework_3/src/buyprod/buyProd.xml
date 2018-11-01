@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+			PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+			"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+			
+<!-- namespace속성 : 아래에서 작성한 SQL을 호출할 때 같이 사용된다. -->			
+<sqlMap namespace="buyprod">
+	<!-- select -->
+	<select id="selectBuyProdAll" resultClass="buyprodVO">
+		SELECT *
+		FROM   BUYPROD
+	</select>
+	
+	<select id="selectBuyProd" parameterClass="buyprodVO" resultClass="buyprodVO">
+		SELECT *
+		FROM   BUYPROD
+		<dynamic prepend="where">
+	 		<isNotEmpty prepend="and" property="buy_date">
+	 			BUY_DATE = #buy_date#
+	 		</isNotEmpty>
+	 		<isNotEmpty prepend="and" property="buy_prod">
+	 			BUY_PROD = #buy_prod#
+	 		</isNotEmpty>
+	 	</dynamic>
+	</select>
+	
+	<select id="checkBuyProd" parameterClass="HashMap" resultClass="int">
+		SELECT count(*)
+		FROM   BUYPROD
+		WHERE  BUY_DATE = #buy_date#
+		   AND BUY_PROD = #buy_prod#
+	</select>
+	
+	<!-- insert -->
+	<insert id="insertBuyProd" parameterClass="buyprodVO">
+		INSERT INTO BUYPROD
+			(BUY_DATE
+			, BUY_PROD
+			, BUY_QTY
+			, BUY_COST)
+		VALUES
+			(#buy_date#
+			, #buy_prod#
+			, #buy_qty#
+			, #buy_cost#)
+	</insert>
+	
+	<!-- update -->
+	<update id="updateBuyProd" parameterClass="buyprodVO">
+		UPDATE BUYPROD
+		SET BUY_QTY = #buy_qty#
+		  , BUY_COST = #buy_cost#
+		WHERE BUY_DATE = #buy_date#
+		  AND BUY_PROD = #buy_prod#
+	</update>
+	
+	<!-- delete -->
+	<delete id="deleteBuyProd" parameterClass="HashMap">
+		DELETE FROM BUYPROD
+		WHERE BUY_DATE = #buy_date#
+		  AND BUY_PROD = #buy_prod#
+	</delete>
+</sqlMap>

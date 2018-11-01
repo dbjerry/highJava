@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystudent.main.MystudentController">
+   <children>
+      <TableView fx:id="table_view" layoutX="19.0" layoutY="14.0">
+        <columns>
+          <TableColumn fx:id="table_name" prefWidth="75.0" text="Name" />
+          <TableColumn fx:id="table_kor" prefWidth="75.0" text="Kor" />
+            <TableColumn fx:id="table_mat" prefWidth="75.0" text="Mat" />
+            <TableColumn fx:id="table_eng" prefWidth="75.0" text="Eng" />
+        </columns>
+      </TableView>
+      <Button fx:id="btn_barGraph" layoutX="180.0" layoutY="430.0" mnemonicParsing="false" onAction="#barGraphAction" text="Bar Graph" />
+      <Button fx:id="btn_add" layoutX="90.0" layoutY="430.0" mnemonicParsing="false" onAction="#addAction" text="add" />
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>
